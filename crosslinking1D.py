@@ -6,10 +6,10 @@ import numpy as np
 # PARAMETERS AND CONSTANTS
 # -----------------------
 L = 28  # mm — Domain length
-N = 800  # Number of spatial elements
+N = 264  # Number of spatial elements
 dt = 20  # s — Time step
 t_end = 1200  # s — Total time
-num_steps = int(t_end / dt)
+num_steps = int(t_end / dt) 
 
 # Concentration and reaction parameters
 c_CaCl2 = 0.01      # mg/µL
@@ -66,7 +66,7 @@ for n in range(num_steps):
 
     # Solve variational problem for c_n
     a = (1/dt)*c*v*dx + D0*dot(grad(c), grad(v))*dx
-    l = (1/dt)*c_nm1*v*dx - r*v*dx # Apply r only to interior
+    l = (1/dt)*c_nm1*v*dx - r*v*dx 
     solve(a == l, c_n, boundary_condition)
  
     # Compute dc/dx at x=0 using forward difference
