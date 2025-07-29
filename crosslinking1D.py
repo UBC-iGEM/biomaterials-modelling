@@ -49,7 +49,7 @@ alpha_n = Function(V)
 da_dt = Function(V)
 
 # -----------------------
-# TIME STEPPING
+# WEAK FORMULATION
 # -----------------------
 Vc = []
 Vc.append(0.0)
@@ -72,7 +72,6 @@ for n in range(num_steps):
     # Compute dc/dx at x=0 using forward difference
     grad_c = project(grad(c_n)[0], V)
     dc_dx = grad_c(Point(0.0))
-    print(f"c(0) = {c_n(Point(0.0)):.4f}, expected = {float(c_hat):.4f}")
 
     # Compute flux into domain
     flux = max(0.0, -float(D0) * dc_dx)
@@ -91,7 +90,6 @@ for n in range(num_steps):
 # -----------------------
 # PLOT RESULTS
 # -----------------------
-
 time_points = np.linspace(0, t_end, num_steps + 1) / 60  # min
 
 plt.figure()

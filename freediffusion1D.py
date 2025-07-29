@@ -13,7 +13,7 @@ num_steps = int(t_end / dt)
 
 # Physical parameters
 c_hat_val = 0.0036  # mg/µL (0.01 * 0.36)
-D = 0.5e-3         # mm²/s
+D = 0.83e-3         # mm²/s
 A = 17.81           # mm²
 rho = 0.0215        # mg/µL
 w = 0.36            # unitless
