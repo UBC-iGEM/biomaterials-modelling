@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # -----------------------
-# PARAMETERS AND CONSTANTS
+# PARAMETERS
 # -----------------------
 L = 28  # mm — Domain length
 N = 264  # Number of spatial elements

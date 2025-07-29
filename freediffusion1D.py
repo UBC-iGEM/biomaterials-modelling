@@ -19,7 +19,7 @@ rho = 0.0215        # mg/µL
 w = 0.36            # unitless
 
 # -----------------------
-# FEM Setup
+# FEM SETUP
 # -----------------------
 mesh = IntervalMesh(N, 0, L)
 V = FunctionSpace(mesh, "Lagrange", 1)
@@ -35,12 +35,13 @@ c_n = Function(V)
 c_nm1 = Function(V)
 c_nm1.vector()[:] = 0.0
 
-
 # Time tracking
 Vc = [0.0]
 flux_sum = 0.0
 
-# Time stepping
+# -----------------------
+# WEAK FORMULATION
+# -----------------------
 for n in range(num_steps):
 
     # Variational form (no reaction)
@@ -64,13 +65,13 @@ for n in range(num_steps):
     c_nm1.assign(c_n)
 
 # -----------------------
-# Analytical Solution
+# ANALYTICAL SOLUTION
 # -----------------------
 t_vals = np.linspace(0, t_end, num_steps + 1)
 Vc_analytical = (2 * A * c_hat_val / (w * rho)) * np.sqrt(D * t_vals / np.pi)
 
 # -----------------------
-# Plot
+# PLOT RESULTS
 # -----------------------
 plt.plot(t_vals / 60, Vc, label='FEniCS (numerical)')
 plt.plot(t_vals / 60, Vc_analytical, '--', label='Analytical')
