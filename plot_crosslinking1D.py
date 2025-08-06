@@ -2,10 +2,10 @@
 from fenics import *
 import matplotlib.pyplot as plt
 import numpy as np
-from config import paper_params, alginate_only_params
+from config import paper_params, alginate_only_params, thirty_percent_sand_params
 import crosslinking1D as cl
 
-# Plot paper_params results
+# Plot 0% sand weight (alginate only results )
 Vc_D0 = cl.constant_diffusion(alginate_only_params)
 Vc_D_alpha = cl.diffusion_alpha(alginate_only_params)
 time_points = np.linspace(0, alginate_only_params.t_end, alginate_only_params.num_steps + 1) / 60  # min
@@ -26,8 +26,36 @@ plt.scatter(overlay_x, overlay_y, color='black', marker='o', label='Data Points'
 
 plt.xlabel("Time (minutes)")
 plt.ylabel("V_c(t) (µL)")
-plt.title("Accumulated Volume Over Time")
+plt.title("Accumulated Volume Over Time (0% Sand Weight)")
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
+
+
+# Plot 30% sand weight (alginate only results )
+plt.figure()
+
+Vc_D0_thirty_sand = cl.constant_diffusion(thirty_percent_sand_params)
+Vc_D_alpha_thirty_sand = cl.diffusion_alpha(thirty_percent_sand_params)
+time_points_thirty_sand= np.linspace(0, thirty_percent_sand_params.t_end, thirty_percent_sand_params.num_steps + 1) / 60  # min
+
+# Plot constant diffusion (blue)
+plt.plot(time_points, Vc_D0_thirty_sand, label="D0", lw=2, color='blue')
+
+# Plot D(alpha) diffusion (red, dashed)
+plt.plot(time_points, Vc_D_alpha_thirty_sand, label="D(α)", lw=2, color='red')
+
+#Plot experimental data (black dots)
+overlay_x = [2,5,10,15,20,60]       
+overlay_y = [34.75670308, 34.45878848, 48.36146971, 54.02184707, 63.75372393, 112.7110228]
+
+plt.scatter(overlay_x, overlay_y, color='black', marker='o', label='Data Points', zorder=5)
+
+plt.xlabel("Time (minutes)")
+plt.ylabel("V_c(t) (µL)")
+plt.title("Accumulated Volume Over Time (30% Sand Weight)")
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+
 plt.show()
