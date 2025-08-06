@@ -77,8 +77,8 @@ paper_params = Parameters(
 
 alginate_only_params = Parameters(
     L=5.66, #edited mm
-    N=264,
-    dt=60.0,
+    N=300,
+    dt=20.0,
     t_end=3600.0, #edited
     c_CaCl2= 0.011098, #edited (mg/µL)
     w_CaCl2=0.36, #no need to change (mg/µL)
