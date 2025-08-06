@@ -6,7 +6,6 @@ import numpy as np
 # FEM SETUP + SOLVER
 # -----------------------
 def constant_diffusion(params):
-
     L = params.L
     N = params.N 
     dt = params.dt
@@ -83,7 +82,6 @@ def constant_diffusion(params):
 
 
 def diffusion_alpha(params):
-
     L = params.L
     N = params.N 
     dt = params.dt
