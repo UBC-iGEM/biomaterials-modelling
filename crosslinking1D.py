@@ -3,37 +3,27 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # -----------------------
-# PARAMETERS
-# -----------------------
-L = 28  # mm — Domain length
-N = 264  # Number of spatial elements
-dt = 20  # s — Time step
-t_end = 1200  # s — Total time
-num_steps = int(t_end / dt)
-
-# Concentration and reaction parameters
-c_CaCl2 = 0.01      # mg/µL
-w_CaCl2 = 0.36
-c_hat = Constant(c_CaCl2 * w_CaCl2)
-cA = Constant(0.08) # mg/µL
-
-D0 = Constant(0.83e-3)  # mm²/s
-D1 = Constant(0.415e-3)   # mm²/s
-K = Constant(0.03)      # 1/s
-Nc = Constant(0.1)      # dimensionless
-
-# Volume calculation constants
-A = 17.81  # mm²
-rho_CaCl2 = 0.0215  # mg/µL
-
-#D_alpha parameters
-n = 5
-alpha_gel = 0.2
-
-# -----------------------
 # FEM SETUP + SOLVER
 # -----------------------
-def constant_diffusion():
+def constant_diffusion(params):
+
+    L = params.L
+    N = params.N 
+    dt = params.dt
+    t_end = params.t_end
+    num_steps = params.num_steps
+    c_CaCl2 = params.c_CaCl2
+    w_CaCl2 = params.w_CaCl2
+    c_hat = params.c_hat
+    cA = params.cA
+    D0 = params.D0
+    K = params.K
+    Nc = params.Nc
+    A = params.A
+    rho_CaCl2 = params.rho_CaCl2
+    n = params.n
+    alpha_gel = params.alpha_gel
+
     mesh = IntervalMesh(N, 0, L)
     V = FunctionSpace(mesh, "Lagrange", 1)
 
@@ -92,7 +82,26 @@ def constant_diffusion():
     return Vc
 
 
-def diffusion_alpha():
+def diffusion_alpha(params):
+
+    L = params.L
+    N = params.N 
+    dt = params.dt
+    t_end = params.t_end
+    num_steps = params.num_steps
+    c_CaCl2 = params.c_CaCl2
+    w_CaCl2 = params.w_CaCl2
+    c_hat = params.c_hat
+    cA = params.cA
+    D0 = params.D0
+    D1 = params.D1
+    K = params.K
+    Nc = params.Nc
+    A = params.A
+    rho_CaCl2 = params.rho_CaCl2
+    n = params.n
+    alpha_gel = params.alpha_gel
+
     mesh = IntervalMesh(N, 0, L)
     V = FunctionSpace(mesh, "Lagrange", 1)
 
@@ -155,25 +164,3 @@ def diffusion_alpha():
 
     return Vc
 
-# -----------------------
-# PLOT RESULTS
-# -----------------------
-Vc_D0 = constant_diffusion()
-Vc_D_alpha = diffusion_alpha()
-time_points = np.linspace(0, t_end, num_steps + 1) / 60  # min
-
-plt.figure()
-
-# Plot constant diffusion (blue)
-plt.plot(time_points, Vc_D0, label="D0", lw=2, color='blue')
-
-# Plot D(alpha) diffusion (red, dashed)
-plt.plot(time_points, Vc_D_alpha, label="D(α)", lw=2, color='red')
-
-plt.xlabel("Time (minutes)")
-plt.ylabel("V_c(t) (µL)")
-plt.title("Accumulated Volume Over Time")
-plt.grid(True)
-plt.legend()
-plt.tight_layout()
-plt.show()
