@@ -5,17 +5,17 @@ import numpy as np
 # -----------------------
 # PARAMETERS
 # -----------------------
-L = 28         # mm
-N = 800        # Finer mesh for accuracy
+L = 5.66         # mm
+N = 300        # Finer mesh for accuracy
 dt = 20        # s
-t_end = 1200   # s
+t_end = 3600   # s
 num_steps = int(t_end / dt)
 
 # Physical parameters
-c_hat_val = 0.0036  # mg/µL (0.01 * 0.36)
+c_hat_val = 0.011098*0.36  # mg/µL (0.01 * 0.36)
 D = 0.83e-3         # mm²/s
-A = 17.81           # mm²
-rho = 0.0215        # mg/µL
+A = 176.71         # mm²
+rho = 0.0238607       # mg/µL
 w = 0.36            # unitless
 
 # -----------------------
@@ -77,7 +77,7 @@ plt.plot(t_vals / 60, Vc, label='FEniCS (numerical)')
 plt.plot(t_vals / 60, Vc_analytical, '--', label='Analytical')
 plt.xlabel("Time (min)")
 plt.ylabel("Vc (µL)")
-plt.title("Calcium Absorbed Over Time")
+plt.title("Accumulated Volume of CaCl2 Over Time (Simple Diffusion)")
 plt.legend()
 plt.grid(True)
 plt.tight_layout()

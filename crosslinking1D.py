@@ -108,7 +108,7 @@ def diffusion_alpha(params):
 
     boundary_condition = DirichletBC(V, c_hat, boundary_boolean_function)
 
-    c = TrialFunction(V)
+    u = TrialFunction(V)
     v = TestFunction(V)
 
     c_nm1 = Function(V)
@@ -138,7 +138,7 @@ def diffusion_alpha(params):
         D_alpha = project(D_alpha_expr, V)
 
         # Solve variational problem for c_n
-        a = (1 / dt) * c * v * dx + D_alpha * dot(grad(c), grad(v)) * dx
+        a = (1 / dt) * u * v * dx + D_alpha * dot(grad(u), grad(v)) * dx
         l = (1 / dt) * c_nm1 * v * dx - r * v * dx
         solve(a == l, c_n, boundary_condition)
 
