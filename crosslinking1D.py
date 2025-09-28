@@ -107,7 +107,7 @@ def diffusion_alpha(params):
         return on_boundary and near(x[0], 0)
 
     boundary_condition = DirichletBC(V, c_hat, boundary_boolean_function)
-
+#test
     u = TrialFunction(V)
     v = TestFunction(V)
 
