@@ -31,7 +31,7 @@ def constant_diffusion(params):
 
     boundary_condition = DirichletBC(V, c_hat, boundary_boolean_function)
 
-    c = TrialFunction(V)
+    u = TrialFunction(V)
     v = TestFunction(V)
 
     c_nm1 = Function(V)
@@ -56,7 +56,7 @@ def constant_diffusion(params):
         r = project(Nc * cA * da_dt, V)
 
         # Solve variational problem for c_n
-        a = (1 / dt) * c * v * dx + D0 * dot(grad(c), grad(v)) * dx
+        a = (1 / dt) * u * v * dx + D0 * dot(grad(u), grad(v)) * dx
         l = (1 / dt) * c_nm1 * v * dx - r * v * dx
         solve(a == l, c_n, boundary_condition)
 
@@ -107,7 +107,7 @@ def diffusion_alpha(params):
         return on_boundary and near(x[0], 0)
 
     boundary_condition = DirichletBC(V, c_hat, boundary_boolean_function)
-#test
+
     u = TrialFunction(V)
     v = TestFunction(V)
 
