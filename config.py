@@ -110,3 +110,21 @@ thirty_percent_sand_params = Parameters(
     n=5,
     alpha_gel=0.2
 )
+
+mgs_params = Parameters(
+    L=5.66, #edited mm
+    N=264,
+    dt=20.0,
+    t_end=3600.0, #edited
+    c_CaCl2= 0.011098, #edited (mg/µL)
+    w_CaCl2=0.36, #no need to change (mg/µL)
+    cA=Constant(0.03),#edited 
+    D0=Constant(0.83e-3), #no need to change
+    D1=Constant(0.05*0.83e-3),# D1 = delta*D0, where delta is some fraction of D0. e.g D1 = 0.25 * D0
+    K=Constant(0.03),
+    Nc=Constant(0.1),
+    A=176.71, #edited (mm^2 = pi*(7mm/2)^2)
+    rho_CaCl2= 0.0238607,#edited
+    n=5,
+    alpha_gel=0.8
+)
